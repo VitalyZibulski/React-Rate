@@ -1,6 +1,5 @@
 import React from 'react';
 import './navbar.scss';
-import {AddClass} from '../../hoc/AddClass';
 
 export const NavBar = () => {
   return (
