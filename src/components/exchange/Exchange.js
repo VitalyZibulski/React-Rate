@@ -12,7 +12,7 @@ export const Exchange = () => {
       <div className="exchangeContainer">
         <div className="exchangeContent">
           <div>
-            <p>Базовая валюта: &nbsp; &nbsp; Дата: </p>
+            <p>Базовая валюта: &nbsp;{state.base} &nbsp; Дата: {state.date} </p>
           </div>
           <ul>
             {
@@ -20,7 +20,7 @@ export const Exchange = () => {
                 return (
                   <li key={item}>
                     <span><img src={currency[item].flag} alt={item}/>{item}</span>
-                    <span>{`1${state.base} = ${currency[item].course} ${item}`}</span>
+                    <span>{`1 ${state.base} = ${currency[item].course} ${item}`}</span>
                   </li>
                 )
               })
