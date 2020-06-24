@@ -26,8 +26,32 @@ class App extends React.Component {
         JPY: {name: 'Японская Йена', flag: JPY, course: ''},
         RUB: {name: 'Российский Рубль', flag: RUB, course: ''},
         CHF: {name: 'Швейцарский Франк', flag: CHF, course: ''},
-      }
+      },
+
+      //state for calculator
+      inputValue: '100',
+      currencyValue: 'USD',
+      result: null
     }
+  }
+
+  inputValueHandler = (e) => {
+    this.setState({inputValue: e.target.value })
+  }
+
+  currencyValueHandler = (e) => {
+    this.setState({currencyValue: e.target.value })
+  }
+
+  calculatorHandler = async (value) => {
+    let result
+    await fetch(`https://api.exchangeratesapi.io/latest?base=RUB`)
+      .then((response) => response.json())
+      .then ((response) => {
+          result = response.rates[value] * this.state.inputValue
+      })
+
+    this.setState({result })
   }
 
   componentDidMount() {
@@ -53,7 +77,12 @@ class App extends React.Component {
 
   render(){
       return (
-        <RateContext.Provider value={{state: this.state}}>
+        <RateContext.Provider
+          value={{state: this.state,
+            inputValueHandler: this.inputValueHandler,
+            currencyValueHandler: this.currencyValueHandler,
+            calculatorHandler: this.calculatorHandler
+          }}>
           <Layout/>
         </RateContext.Provider>
       )
