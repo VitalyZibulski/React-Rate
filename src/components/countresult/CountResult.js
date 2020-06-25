@@ -8,13 +8,13 @@ export const CountResult = () => {
   return (
     <div className="calcResult">
       <ul>
-        <li>
+        {state.result ? <li>
           <p>
             <span>{state.inputValue}&nbsp;RUB</span>
             =
             <span>{state.result}&nbsp;{state.currencyValue}</span>
           </p>
-        </li>
+        </li> : null}
       </ul>
     </div>
   )
