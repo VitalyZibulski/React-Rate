@@ -36,11 +36,11 @@ class App extends React.Component {
   }
 
   inputValueHandler = (e) => {
-    this.setState({inputValue: e.target.value })
+    this.setState({inputValue: e.target.value, result: null })
   }
 
   currencyValueHandler = (e) => {
-    this.setState({currencyValue: e.target.value })
+    this.setState({currencyValue: e.target.value, result: null })
   }
 
   calculatorHandler = async (value) => {
