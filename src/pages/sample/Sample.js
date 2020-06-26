@@ -4,7 +4,13 @@ import {RateContext} from "../../context/RateContext";
 import {Button} from "../../components/button/Button";
 
 export const Sample = () => {
-  const {state} = useContext(RateContext)
+  const {
+    state,
+    baseHandler,
+    base2Handler,
+    sampleDateHandler,
+    dataWrite
+  } = useContext(RateContext)
 
   return (
    <div className="sample">
@@ -13,7 +19,7 @@ export const Sample = () => {
          <h3>
             Получить курс: &nbsp;
 
-           <select>
+           <select onChange={baseHandler} value={state.sample.base}>
              {
                Object.keys(state.currency).map((item, i) => {
                  return (
@@ -23,7 +29,7 @@ export const Sample = () => {
              }
            </select>
             &nbsp; &nbsp; к &nbsp;&nbsp;
-           <select>
+           <select onChange={base2Handler} value={state.sample.base2}>
              {
                Object.keys(state.currency).map((item, i) => {
                  return (
@@ -35,8 +41,8 @@ export const Sample = () => {
          </h3>
        </div>
        <div className="sampleHead">
-         <span>Дата: <input type="date" /></span>
-         <Button text="Получить курс" />
+         <span>Дата: <input type="date" onChange={sampleDateHandler}/></span>
+         <Button text="Получить курс" click={dataWrite} arg={state.sample}/>
        </div>
        <div className="sampleResult">
           <ul>
