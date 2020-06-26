@@ -9,6 +9,7 @@ import JPY from './image/JPY.png';
 import RUB from './image/RUB.png';
 import USD from './image/USD.png';
 import {RateContext} from "./context/RateContext";
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -31,8 +32,34 @@ class App extends React.Component {
       //state for calculator
       inputValue: '100',
       currencyValue: 'USD',
-      result: null
+      result: null,
+
+      //sample
+      sample: {base:'RUB', base2:'USD', date:''},
+      sampleList: '',
     }
+  }
+
+  baseHandler = (e) => {
+    this.setState({sample: {...this.state.sample, base: e.target.value}})
+  }
+
+  base2Handler = (e) => {
+    this.setState({sample: {...this.state.sample, base2: e.target.value}})
+  }
+
+  sampleDateHandler = (e) => {
+    this.setState({sample: {...this.state.sample, date: e.target.value}})
+  }
+
+  dataWrite = async (sample) => {
+    await axios.post('https://rate-app-9bd76.firebaseio.com/sample.json', sample)
+      .then((response) => { return('')})
+
+    await axios.get('https://rate-app-9bd76.firebaseio.com/sample.json')
+      .then((response) => {
+        this.setState({sampleList: response.data})
+      })
   }
 
   inputValueHandler = (e) => {
@@ -81,7 +108,11 @@ class App extends React.Component {
           value={{state: this.state,
             inputValueHandler: this.inputValueHandler,
             currencyValueHandler: this.currencyValueHandler,
-            calculatorHandler: this.calculatorHandler
+            calculatorHandler: this.calculatorHandler,
+            baseHandler: this.baseHandler,
+            base2Handler: this.base2Handler,
+            sampleDateHandler: this.sampleDateHandler,
+            dataWrite: this.dataWrite
           }}>
           <Layout/>
         </RateContext.Provider>
