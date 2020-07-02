@@ -10,6 +10,8 @@ import RUB from './image/RUB.png';
 import USD from './image/USD.png';
 import {RateContext} from "./context/RateContext";
 import axios from 'axios'
+import {Dark} from "./components/dark/Dark";
+import {Modal} from "./components/modal/Modal";
 
 class App extends React.Component {
   constructor(props) {
@@ -135,6 +137,8 @@ class App extends React.Component {
             dataWrite: this.dataWrite,
             sampleRemove: this.sampleRemove
           }}>
+          <Dark />
+          <Modal />
           <Layout/>
         </RateContext.Provider>
       )

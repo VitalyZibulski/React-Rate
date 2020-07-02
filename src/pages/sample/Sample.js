@@ -43,6 +43,8 @@ export const Sample = () => {
           <Button text='Получить курс' click={dataWrite} arg={state.sample}/>
         </div>
 
+
+        {state.sampleList ?
         <div className='sampleResult'>
           <ul>
             {Object.keys(state.sampleList).map((item, i) => {
@@ -58,6 +60,7 @@ export const Sample = () => {
             })}
           </ul>
         </div>
+         : '' }
       </div>
     </div>
   )
