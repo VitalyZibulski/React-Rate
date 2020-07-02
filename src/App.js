@@ -12,12 +12,39 @@ import {RateContext} from "./context/RateContext";
 import axios from 'axios'
 import {Dark} from "./components/dark/Dark";
 import {Modal} from "./components/modal/Modal";
+import {Input} from "./components/input/Input";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      formControls: {
+        email: { value: '',
+                 type: 'email',
+                 label: 'Email',
+                 errorMessage: 'Введите корректный Email',
+                 valid: false,
+                 touched: false,
+                 validation: {
+                    required: true,
+                    email: true
+                 }
+        },
+        password: {
+          value: '',
+          type: 'password',
+          label: 'Пароль',
+          errorMessage: 'Введите корректный пароль',
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            minLength: 6
+          }
+        }
+      },
+
       base: 'USD',
       rate: '',
       date: '',
@@ -41,6 +68,31 @@ class App extends React.Component {
       sampleList: '',
     }
   }
+
+  onChangeHandler = (e, controlName) => {
+      console.log(`${controlName} - ${e.target.value}`)
+  }
+
+  renderInputs = () => {
+    return Object.keys(this.state.formControls).map((controlName, i) => {
+      const control = this.state.formControls[controlName]
+      return (
+        <Input
+          key={controlName + i}
+          type = {control.type}
+          value= {control.value}
+          valid = {control.valid}
+          touched = {control.touched}
+          label = {control.label}
+          errorMessage = {control.errorMessage}
+          shouldValidate = {true}
+          onChange = {(e) => this.onChangeHandler(e, controlName)}
+        />
+      )
+    })
+  }
+
+
 
   baseHandler = (e) => {
     this.setState({sample: {...this.state.sample, base: e.target.value}})
@@ -135,7 +187,8 @@ class App extends React.Component {
             base2Handler: this.base2Handler,
             sampleDateHandler: this.sampleDateHandler,
             dataWrite: this.dataWrite,
-            sampleRemove: this.sampleRemove
+            sampleRemove: this.sampleRemove,
+            renderInputs: this.renderInputs
           }}>
           <Dark />
           <Modal />
