@@ -71,7 +71,18 @@ class App extends React.Component {
       //sample
       sample: {base:'USD', base2:'RUB', date:'', course:''},
       sampleList: '',
+
+      //modal
+      showModal: false
     }
+  }
+
+  modalShowHandler = () => {
+    this.setState({showModal: true})
+  }
+
+  modalHideHandler = () => {
+    this.setState({showModal: false})
   }
 
   validateControl = (value, validation) => {
@@ -126,8 +137,6 @@ class App extends React.Component {
       )
     })
   }
-
-
 
   baseHandler = (e) => {
     this.setState({sample: {...this.state.sample, base: e.target.value}})
@@ -223,9 +232,11 @@ class App extends React.Component {
             sampleDateHandler: this.sampleDateHandler,
             dataWrite: this.dataWrite,
             sampleRemove: this.sampleRemove,
-            renderInputs: this.renderInputs
+            renderInputs: this.renderInputs,
+            modalShowHandler: this.modalShowHandler,
+            modalHideHandler: this.modalHideHandler,
           }}>
-          <Dark />
+          <Dark showModal={this.state.showModal} modalHideHandler={this.modalHideHandler}/>
           <Modal />
           <Layout/>
         </RateContext.Provider>
