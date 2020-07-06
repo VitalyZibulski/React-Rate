@@ -17,8 +17,8 @@ export const Modal = () => {
         </div>
         <hr/>
         </Fragment>
-        <Login />
-        {/*<Register />*/}
+        {/*<Login />*/}
+        <Register />
       </div>
     )
 }
