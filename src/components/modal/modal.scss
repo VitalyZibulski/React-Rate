@@ -1,3 +1,5 @@
+
+
 .modal{
   width: 18.5vw;
   height: 25vw;
@@ -12,7 +14,7 @@
   right: 0;
   bottom: 0;
   border-radius: 5px;
-  // display: none;
+  display: none;
 
 }
 
@@ -45,4 +47,8 @@
   i{
     font-size: 1vw;
   }
+}
+
+.modalShow{
+  display: block;
 }
