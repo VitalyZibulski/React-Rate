@@ -13,7 +13,7 @@ export const Login = () => {
           {renderInputs()}
         </div>
         <div className="modalBtn">
-          <Button text="Войти" disabled={!state.isFormValid} click={loginHandler}/>
+          <Button text="Войти" disabled={state.isFormValid} onClick={loginHandler}/>
         </div>
       </Fragment>
   )
