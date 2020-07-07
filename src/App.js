@@ -24,6 +24,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      auth: false,
+      error: '',
+
       formControls: {
         email: { value: '',
                  type: 'email',
@@ -87,8 +90,21 @@ class App extends React.Component {
     try {
       const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDdjzTMympV_gi2KK87A1gCxjNJyTHtgYc', authData)
       console.log(response)
+      if(response.data.idToken){
+        const formControls = {...this.state.formControls}
+        formControls.email.value = ''
+        formControls.password.value = ''
+
+        this.setState({
+            auth:true,
+            showModal: false,
+            error: '',
+            formControls
+          }
+        )
+      }
     } catch (e) {
-      console.log(e)
+      this.setState({error: 'Error'})
     }
   }
 
@@ -100,9 +116,22 @@ class App extends React.Component {
 
     try {
       const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDdjzTMympV_gi2KK87A1gCxjNJyTHtgYc', authData)
-      console.log(response)
-    } catch (e) {
-      console.log(e)
+
+      if(response.data.idToken){
+        const formControls = {...this.state.formControls}
+        formControls.email.value = ''
+        formControls.password.value = ''
+
+        this.setState({
+            auth:true,
+            showModal: false,
+            error: '',
+            formControls
+          }
+        )
+      }
+    }  catch (e) {
+      this.setState({error: 'Error'})
     }
   }
 
